@@ -23,4 +23,4 @@ template ZauKtion() {
     nullifier <== Poseidon(1)([a1]);
 }
 
-component main { public [x, groupId] } = ZauKtion();
+component main { public [x, groupId, biddingAddress] } = ZauKtion();
