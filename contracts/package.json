@@ -19,8 +19,8 @@
   ],
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.2",
-    "circuits": "^0.1.0",
     "circomlibjs": "^0.1.2",
+    "circuits": "^0.1.0",
     "snarkjs": "^0.4.16"
   },
   "devDependencies": {
@@ -36,6 +36,7 @@
     "@typescript-eslint/parser": "^4.33.0",
     "chai": "^4.3.4",
     "dotenv": "^10.0.0",
+    "erc721a": "^4.2.3",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
