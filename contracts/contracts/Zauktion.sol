@@ -11,6 +11,15 @@ import "./interfaces/IVault.sol";
 // constants and types
 import { ZauktionStorage } from "./storage/Zauktion.sol";
 
+interface IIdVerifier {
+  function verify(
+    uint256[2] memory,
+    uint256[2][2] memory,
+    uint256[2] memory,
+    uint256[2] memory
+  ) external view returns (bool);
+}
+
 interface IAuctionVerifier {
   function verify(
     uint256[2] memory,
@@ -26,13 +35,15 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
     uint256 _entraceStake,
     uint256 _bidDue,
     uint256 _revealDue,
-    address _verifier,
+    address _auctionVerifier,
+    address _idVerifier,
     address _vault
   ) external override onlyOwner {
     auctionId = _auctionId;
     bidDue = _bidDue;
     revealDue = _revealDue;
-    verifier = _verifier;
+    auctionVerifier = _auctionVerifier;
+    idVerifier = _idVerifier;
     entraceStake = _entraceStake;
     prizeVault = _vault;
   }
@@ -50,7 +61,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
     if (msg.value < entraceStake) revert();
 
     if (
-      !IAuctionVerifier(verifier).verify(
+      !IAuctionVerifier(auctionVerifier).verify(
         _proof_a,
         _proof_b,
         _proof_c,
@@ -66,14 +77,14 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
     uint256 _y,
     uint256 _nullifier,
     uint256 _idCommitment,
+    uint256 _winningCommitment,
     uint256[2] memory _proof_a,
     uint256[2][2] memory _proof_b,
     uint256[2] memory _proof_c
   ) external override {
     if (block.timestamp > revealDue) revert();
-
     if (
-      !IAuctionVerifier(verifier).verify(
+      !IAuctionVerifier(auctionVerifier).verify(
         _proof_a,
         _proof_b,
         _proof_c,
@@ -82,11 +93,23 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
     ) {
       revert();
     }
+
+    if (
+      !IIdVerifier(idVerifier).verify(
+        _proof_a,
+        _proof_b,
+        _proof_c,
+        [_idCommitment, winnerCommitment]
+      )
+    ) {
+      revert();
+    }
+
     uint256 prevY = yList[msg.sender];
     uint256 a1 = _y - prevY;
     uint256 a0 = prevY - a1;
     // store everyones bid;
-    revealedBid.push(BidInfo(msg.sender, a0));
+    revealedBid.push(BidInfo(msg.sender, a0, _winningCommitment));
     revealed[msg.sender] = true;
   }
 
@@ -105,11 +128,24 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
     }
     finalBid = _max;
     winner = _winner;
-    winnerRevealed = true;
   }
 
-  function claimPrize() external payable override {
-    if (!winnerRevealed) revert();
+  function claimPrize(
+    uint256 _idCommitment,
+    uint256[2] memory _proof_a,
+    uint256[2][2] memory _proof_b,
+    uint256[2] memory _proof_c
+  ) external payable override {
+    if (
+      !IIdVerifier(idVerifier).verify(
+        _proof_a,
+        _proof_b,
+        _proof_c,
+        [_idCommitment, winnerCommitment]
+      )
+    ) {
+      revert();
+    }
     // check if winner is revealed
     if (winner == address(0)) revert();
     // check if winner is msg.sender
@@ -117,7 +153,6 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
     // check if msg.value is bigger than finalBid
     if (msg.value < finalBid) revert();
     // transfer money
-    
     IVault(prizeVault).transferOwnership(msg.sender);
     prizeClaimed = true;
   }
