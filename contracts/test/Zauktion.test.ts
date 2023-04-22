@@ -11,7 +11,7 @@ import {
 describe("Test zauction file", () => {
     let deployer: SignerWithAddress;
     let verifier: Verifier;
-    let zauction: Zauktion
+    let zauction: Zauktion;
     before(async () => {
         [deployer] = await ethers.getSigners();
         verifier = await new Verifier__factory(deployer).deploy();
@@ -30,6 +30,5 @@ describe("Test zauction file", () => {
             verifier.address,
             ethers.constants.AddressZero
         )
-
     })
 })

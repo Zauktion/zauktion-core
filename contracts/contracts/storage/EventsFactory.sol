@@ -5,6 +5,6 @@ pragma solidity ^0.8.4;
 import "../interfaces/IEventsFactory.sol";
 
 abstract contract EventsFactoryStorage {
-  address internal verifier;
-  mapping(string => IEventsFactory.EventInfo) internal events;
+    address internal verifier;
+    mapping(string => IEventsFactory.EventInfo) internal events;
 }

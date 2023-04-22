@@ -76,6 +76,17 @@ const config: HardhatUserConfig = {
     hardhat: {
       chainId: 1337,
     },
+    gnosis: {
+      url: "https://rpc.gnosischain.com",
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+    chiado: {
+      url: "https://rpc.chiadochain.net",
+      gasPrice: 1000000000,
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
@@ -84,9 +95,41 @@ const config: HardhatUserConfig = {
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
   },
-  dependencyCompiler: {
+  /*dependencyCompiler: {
     paths: ["circuits/zk/verifiers/Main.sol"],
-  },
+  },*/
 };
 
 export default config;
+
+/*
+    apiKey: {
+      chiado: "8CS2FCGGZFP2QUINHA6FNYSDVV3Q556Q2M",
+      gnosis: "8CS2FCGGZFP2QUINHA6FNYSDVV3Q556Q2M",
+      mainnet: `${process.env.ARBISCAN_API_KEY}`,
+    },
+    customChains: [
+      {
+        network: "chiado",
+        chainId: 10200,
+        urls: {
+          // Blockscout
+          apiURL: "https://blockscout.com/gnosis/chiado/api",
+          browserURL: "https://blockscout.com/gnosis/chiado",
+        },
+      },
+      {
+        network: "gnosis",
+        chainId: 100,
+        urls: {
+          // 3) Select to what explorer verify the contracts
+          // Gnosisscan
+          apiURL: "https://api.gnosisscan.io/api",
+          browserURL: "https://gnosisscan.io/",
+          // Blockscout
+          // apiURL: "https://blockscout.com/xdai/mainnet/api",
+          // browserURL: "https://blockscout.com/xdai/mainnet",
+        },
+      },
+    ],
+*/
