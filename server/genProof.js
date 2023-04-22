@@ -29,7 +29,6 @@ const zauktionBidProof = async (data) => {
       idSecretHash += idSecret.charCodeAt(i).toString(16);
     }
 
-    console.log(zauktion);
     const auctionId = await zauktion.auctionId();
     console.log(auctionId);
     const x = BigInt(1);
