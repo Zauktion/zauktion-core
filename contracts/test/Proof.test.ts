@@ -29,15 +29,17 @@ describe("Test Zauktion Verifier", () => {
   describe("Verify", () => {
     it("should able to verify valid input", async () => {
       const bid = BigInt("1000");
-      const idSecret = BigInt(
-        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
-      );
+      const idSecret = "secret";
+      let idSecretHash = "";
+      for (let i = 0; i < idSecret.length; i++) {
+        idSecretHash += idSecret.charCodeAt(i).toString(16);
+      }
       const auctionId = BigInt(10);
       const x = BigInt(1);
       const circuitInputs = ff.utils.stringifyBigInts({
         // Converts the buffer to a BigInt
         bid: bid,
-        idSecret: idSecret,
+        idSecret: idSecretHash,
         auctionId: auctionId,
         x: x,
       });
@@ -53,11 +55,12 @@ describe("Test Zauktion Verifier", () => {
       console.log(res);
     });
     it("should able to verify valid input", async () => {
-      /*
-      const bid = BigInt("1000");
-      const idSecret = BigInt(
-        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
-      );
+      const idSecret = "secret";
+      let idSecretHash = "";
+      for (let i = 0; i < idSecret.length; i++) {
+        idSecretHash += idSecret.charCodeAt(i).toString(16);
+      }
+
       const auctionId = BigInt(10);
       const x = BigInt(1);
       const circuitInputs = ff.utils.stringifyBigInts({
@@ -76,7 +79,7 @@ describe("Test Zauktion Verifier", () => {
         ff.utils.stringifyBigInts(proofForTx.c),
         ff.utils.stringifyBigInts(proofForTx.pub)
       );
-      console.log(res);*/
+      console.log(res);
     });
   });
 });
