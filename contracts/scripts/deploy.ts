@@ -23,11 +23,12 @@ async function main() {
   await zkApp.deployed();
   console.log(zkApp.address);
   */
+  /*
   const EventsFactory = await ethers.getContractFactory("EventsFactory");
   const eventsFactory = await EventsFactory.deploy();
   await eventsFactory.deployed();
   console.log("EventsFactory deployed to:", eventsFactory.address);
-  /*
+  */
   const IdcheckVerifier = await ethers.getContractFactory("IdcheckVerifier");
   const idcheckVerifier = await IdcheckVerifier.deploy();
   await idcheckVerifier.deployed();
@@ -35,13 +36,22 @@ async function main() {
   const ZauktionVerifier = await ethers.getContractFactory("ZauktionVerifier");
   const zauktionVerifier = await ZauktionVerifier.deploy();
   await zauktionVerifier.deployed();
+  const PepeCoin = await ethers.getContractFactory("PepeCoin");
+  const pepeCoin = await PepeCoin.deploy(ethers.utils.parseEther('100000000'));
+  await pepeCoin.deployed();
+  console.log("PepeCoin deployed to:", pepeCoin.address);
+  const Vault = await ethers.getContractFactory("Vault");
+  const vault = await Vault.deploy();
+  await vault.deployed();
+  console.log("Vault deployed to:", vault.address);
+  const lock = await pepeCoin.transfer(vault.address, ethers.utils.parseEther('100000000'));
+
   console.log("ZauktionVerifier deployed to:", zauktionVerifier.address);
   const Zauktion = await ethers.getContractFactory("Zauktion");
   const zauktion = await Zauktion.deploy();
   await zauktion.deployed();
   console.log("Zauktion deployed to:", zauktion.address);
-  const setAuction = await zauktion.setAuction(1, ethers.utils.parseEther('0.0000001'), 1682191709, 1682191809, zauktionVerifier.address, idcheckVerifier.address, '0x0000000000000000000000000000000000000000');
-  */
+  const setAuction = await zauktion.setAuction(1, ethers.utils.parseEther('0.0000001'), 1682191709, 1682191809, zauktionVerifier.address, idcheckVerifier.address, vault.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
