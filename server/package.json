@@ -5,12 +5,14 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
+    "dotenv": "^16.0.3",
+    "ethers": "^5.4.0",
     "express": "^4.18.2",
     "ffjavascript": "^0.2.57",
     "snarkjs": "^0.6.10"
   },
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon --experimental-json-modules index.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

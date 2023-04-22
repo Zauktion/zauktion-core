@@ -1,19 +1,20 @@
+import { ethers } from "ethers";
 import { groth16 } from "snarkjs";
 import * as ff from "ffjavascript";
 import { proofToSCFormat } from "./utils.js";
+import * as dotenv from "dotenv";
+dotenv.config();
 
-//import abi from "../configs/zauktion.json";
+import abi from "./configs/zauktion.json" ;
 const zauktionWasmFile = "./configs/zauktion.wasm";
 const zauktionZkeyFile = "./configs/zauktion.zkey";
 const idcheckWasmFile = "./configs/idcheck.wasm";
 const idcheckZkeyFile = "./configs/idcheck.zkey";
 
-/*
 const rpcURL = `https://rpc.chiadochain.net`;
 const provider = new ethers.providers.JsonRpcProvider(rpcURL, 10200);
 const signer = new ethers.Wallet(process.env.PROJECT_PK_TEST, provider);
-const erc721 = new ethers.Contract(process.env.CONTRACT_TESTNET, abi, signer)
-*/
+const zauktion = new ethers.Contract(process.env.CONTRACT_TESTNET, abi.abi, signer);
 
 const zauktionBidProof = async (data) => {
   try {
@@ -23,8 +24,10 @@ const zauktionBidProof = async (data) => {
     for (let i = 0; i < idSecret.length; i++) {
       idSecretHash += idSecret.charCodeAt(i).toString(16);
     }
-    // const giveawayTokens = await erc721.mintGiveawayTokens(payload.address, 1);
-    const auctionId = BigInt(10);
+
+    console.log(zauktion)
+    const auctionId = await zauktion.auctionId();
+    console.log(auctionId);
     const x = BigInt(1);
     const circuitInputs = ff.utils.stringifyBigInts({
       // Converts the buffer to a BigInt
@@ -69,9 +72,7 @@ const zauktionBidProof = async (data) => {
   }
 };
 
-const idcheckProof = async (
-  data
-) => {
+const idcheckProof = async (data) => {
   try {
   } catch (err) {
     console.error(err);
@@ -89,5 +90,4 @@ const idcheckProof = async (
   }
 };
 
-
-export {zauktionBidProof, idcheckProof}
+export { zauktionBidProof, idcheckProof };

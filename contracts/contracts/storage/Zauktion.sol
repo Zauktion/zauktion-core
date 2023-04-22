@@ -5,16 +5,16 @@ pragma solidity ^0.8.4;
 import "../interfaces/IZauktion.sol";
 
 abstract contract ZauktionStorage {
-    uint256 internal auctionId;
-    uint256 internal entraceStake;
-    uint256 internal bidDue;
-    uint256 internal revealDue;
-    address internal auctionVerifier;
-    address internal idVerifier;
-    address internal prizeVault;
+    uint256 public auctionId;
+    uint256 public entraceStake;
+    uint256 public bidDue;
+    uint256 public revealDue;
+    address public auctionVerifier;
+    address public idVerifier;
+    address public prizeVault;
 
-    uint256 internal finalBid;
-    uint256 internal winnerCommitment;
+    uint256 public finalBid;
+    uint256 public winnerCommitment;
 
     mapping(uint256 => uint256) public idCommitmentToWinnerCommitment;
     mapping(uint256 => uint256) public yList;
