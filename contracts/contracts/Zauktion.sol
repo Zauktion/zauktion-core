@@ -40,6 +40,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
   function bid(
     uint256 _y,
     uint256 _nullifier,
+    uint256 _idCommitment,
     uint256[2] memory _proof_a,
     uint256[2][2] memory _proof_b,
     uint256[2] memory _proof_c
@@ -53,7 +54,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
         _proof_a,
         _proof_b,
         _proof_c,
-        [uint256(uint160(address(msg.sender))), auctionId, 1, _y, _nullifier]
+        [1, auctionId, _y, _nullifier, _idCommitment]
       )
     ) {
       revert();
@@ -64,6 +65,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
   function revealBid(
     uint256 _y,
     uint256 _nullifier,
+    uint256 _idCommitment,
     uint256[2] memory _proof_a,
     uint256[2][2] memory _proof_b,
     uint256[2] memory _proof_c
@@ -75,7 +77,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
         _proof_a,
         _proof_b,
         _proof_c,
-        [uint256(uint160(address(msg.sender))), auctionId, 2, _y, _nullifier]
+        [2, auctionId, _y, _nullifier, _idCommitment]
       )
     ) {
       revert();
@@ -115,6 +117,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
     // check if msg.value is bigger than finalBid
     if (msg.value < finalBid) revert();
     // transfer money
+    
     IVault(prizeVault).transferOwnership(msg.sender);
     prizeClaimed = true;
   }

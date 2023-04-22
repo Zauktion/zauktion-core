@@ -2855,6 +2855,14 @@
     fastfile "0.0.19"
     ffjavascript "^0.2.48"
 
+"@iden3/binfileutils@0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@iden3/binfileutils/-/binfileutils-0.0.11.tgz#9ffbbcc1279f2b2182bb6dcff4eee8a5b2167911"
+  integrity sha512-LylnJoZ0CTdgErnKY8OxohvW4K+p6UHD3sxt+3P9AmMyBQjYR4IpoqoYZZ+9aMj89cmCQ21UvdhndAx04er3NA==
+  dependencies:
+    fastfile "0.0.20"
+    ffjavascript "^0.2.48"
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
@@ -3101,6 +3109,13 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
+
+"@nomicfoundation/hardhat-network-helpers@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@nomicfoundation/hardhat-network-helpers/-/hardhat-network-helpers-1.0.8.tgz#e4fe1be93e8a65508c46d73c41fa26c7e9f84931"
+  integrity sha512-MNqQbzUJZnCMIYvlniC3U+kcavz/PhhQSsY90tbEtUyMj/IQqsLwIRZa4ctjABh3Bz0KCh9OXUZ7Yk/d9hr45Q==
+  dependencies:
+    ethereumjs-util "^7.1.4"
 
 "@nomiclabs/hardhat-ethers@^2.0.3":
   version "2.0.3"
@@ -6634,6 +6649,13 @@ circom_runtime@0.1.17:
   dependencies:
     ffjavascript "0.2.48"
 
+circom_runtime@0.1.22:
+  version "0.1.22"
+  resolved "https://registry.yarnpkg.com/circom_runtime/-/circom_runtime-0.1.22.tgz#f957c47662cdd03cd3fb76979c434c719a366373"
+  integrity sha512-V/XYZWBhbZY8SotkaGH4FbiDYAZ8a1Md++MBiKPDOuWS/NIJB+Q+XIiTC8zKMgoDaa9cd2OiTvsC9J6te7twNg==
+  dependencies:
+    ffjavascript "0.2.57"
+
 circomlib@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/circomlib/-/circomlib-2.0.3.tgz#88816e22f269ba491f47c825a2e238d14fd0e877"
@@ -9041,6 +9063,17 @@ ethereumjs-util@^7.0.10, ethereumjs-util@^7.0.2, ethereumjs-util@^7.1.0, ethereu
     ethereum-cryptography "^0.1.3"
     rlp "^2.2.4"
 
+ethereumjs-util@^7.1.4:
+  version "7.1.5"
+  resolved "https://registry.yarnpkg.com/ethereumjs-util/-/ethereumjs-util-7.1.5.tgz#9ecf04861e4fbbeed7465ece5f23317ad1129181"
+  integrity sha512-SDl5kKrQAudFBUe5OJM9Ac6WmMyYmXX/6sTmLZ3ffG2eY6ZIGBes3pEDxNN6V72WyOw4CPD5RomKdsa8DAAwLg==
+  dependencies:
+    "@types/bn.js" "^5.1.0"
+    bn.js "^5.1.2"
+    create-hash "^1.1.2"
+    ethereum-cryptography "^0.1.3"
+    rlp "^2.2.4"
+
 ethereumjs-vm@4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/ethereumjs-vm/-/ethereumjs-vm-4.2.0.tgz#e885e861424e373dbc556278f7259ff3fca5edab"
@@ -9444,6 +9477,11 @@ fastfile@0.0.19:
   resolved "https://registry.yarnpkg.com/fastfile/-/fastfile-0.0.19.tgz#02cef9ade123b0a74adb794f4a1abcfa5719fd46"
   integrity sha512-tz9nWR5KYb6eR2odFQ7oxqEkx8F3YQZ6NBJoJR92YEG3DqYOqyxMck8PKvTVNKx3uwvOqGnLXNScnqpdHRdHGQ==
 
+fastfile@0.0.20:
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/fastfile/-/fastfile-0.0.20.tgz#794a143d58cfda2e24c298e5ef619c748c8a1879"
+  integrity sha512-r5ZDbgImvVWCP0lA/cGNgQcZqR+aYdFx3u+CtJqUE510pBUVGMn4ulL/iRTI4tACTYsNJ736uzFxEBXesPAktA==
+
 fastq@^1.6.0:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/fastq/-/fastq-1.13.0.tgz#616760f88a7526bdfc596b7cab8c18938c36b98c"
@@ -9496,6 +9534,15 @@ ffjavascript@0.2.48:
     big-integer "^1.6.48"
     wasmbuilder "^0.0.12"
     wasmcurves "0.1.0"
+    web-worker "^1.2.0"
+
+ffjavascript@0.2.57, ffjavascript@^0.2.57:
+  version "0.2.57"
+  resolved "https://registry.yarnpkg.com/ffjavascript/-/ffjavascript-0.2.57.tgz#ba1be96015b2688192e49f2f4de2cc5150fd8594"
+  integrity sha512-V+vxZ/zPNcthrWmqfe/1YGgqdkTamJeXiED0tsk7B84g40DKlrTdx47IqZuiygqAVG6zMw4qYuvXftIJWsmfKQ==
+  dependencies:
+    wasmbuilder "0.0.16"
+    wasmcurves "0.2.0"
     web-worker "^1.2.0"
 
 ffjavascript@^0.2.45, ffjavascript@^0.2.48:
@@ -15503,6 +15550,16 @@ r1csfile@0.0.35:
     fastfile "0.0.19"
     ffjavascript "0.2.48"
 
+r1csfile@0.0.45:
+  version "0.0.45"
+  resolved "https://registry.yarnpkg.com/r1csfile/-/r1csfile-0.0.45.tgz#59d59a33f8b5280017fc00ee691d003a3d705fe0"
+  integrity sha512-YKIp4D441aZ6OoI9y+bfAyb2j4Cl+OFq/iiX6pPWDrL4ZO968h0dq0w07i65edvrTt7/G43mTnl0qEuLXyp/Yw==
+  dependencies:
+    "@iden3/bigarray" "0.0.2"
+    "@iden3/binfileutils" "0.0.11"
+    fastfile "0.0.20"
+    ffjavascript "0.2.57"
+
 raf@^3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/raf/-/raf-3.4.1.tgz#0742e99a4a6552f445d73e3ee0328af0ff1ede39"
@@ -16861,6 +16918,22 @@ snarkjs@^0.4.16:
     logplease "^1.2.15"
     r1csfile "0.0.35"
     readline "^1.3.0"
+
+snarkjs@^0.6.10:
+  version "0.6.10"
+  resolved "https://registry.yarnpkg.com/snarkjs/-/snarkjs-0.6.10.tgz#d751645a45d2390abcb007c409b31d813bedd108"
+  integrity sha512-Ls9XPTIuW2Ivk2sACM0Pn/FnKZP8UYYqRbzDl3SnglY5Gw28BIp1sfArOxdJJ2QrlbK7e6FFjMHQPvTp0Ttn0w==
+  dependencies:
+    "@iden3/binfileutils" "0.0.11"
+    bfj "^7.0.2"
+    blake2b-wasm "^2.4.0"
+    circom_runtime "0.1.22"
+    ejs "^3.1.6"
+    fastfile "0.0.20"
+    ffjavascript "0.2.57"
+    js-sha3 "^0.8.0"
+    logplease "^1.2.15"
+    r1csfile "0.0.45"
 
 sockjs-client@^1.5.0:
   version "1.6.0"
@@ -18606,6 +18679,11 @@ walker@^1.0.7, walker@~1.0.5:
   dependencies:
     makeerror "1.0.12"
 
+wasmbuilder@0.0.16:
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/wasmbuilder/-/wasmbuilder-0.0.16.tgz#f34c1f2c047d2f6e1065cbfec5603988f16d8549"
+  integrity sha512-Qx3lEFqaVvp1cEYW7Bfi+ebRJrOiwz2Ieu7ZG2l7YyeSJIok/reEQCQCuicj/Y32ITIJuGIM9xZQppGx5LrQdA==
+
 wasmbuilder@^0.0.12:
   version "0.0.12"
   resolved "https://registry.yarnpkg.com/wasmbuilder/-/wasmbuilder-0.0.12.tgz#a60cb25d6d11f314fe5ab3f4ee041ccb493cb78a"
@@ -18620,6 +18698,13 @@ wasmcurves@0.1.0:
   dependencies:
     big-integer "^1.6.42"
     blakejs "^1.1.0"
+
+wasmcurves@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/wasmcurves/-/wasmcurves-0.2.0.tgz#ccfc5a7d3778b6e0768b82a9336c80054f9bc0cf"
+  integrity sha512-3e2rbxdujOwaod657gxgmdhZNn+i1qKdHO3Y/bK+8E7bV8ttV/fu5FO4/WLBACF375cK0QDLOP+65Na63qYuWA==
+  dependencies:
+    wasmbuilder "0.0.16"
 
 watchpack-chokidar2@^2.0.1:
   version "2.0.1"
