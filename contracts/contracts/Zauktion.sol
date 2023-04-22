@@ -70,7 +70,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
     ) {
       revert();
     }
-    yList[msg.sender] = _y;
+    yList[_idCommitment] = _y;
   }
 
   function revealBid(
@@ -105,18 +105,18 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
       revert();
     }
 
-    uint256 prevY = yList[msg.sender];
+    uint256 prevY = yList[_idCommitment];
     uint256 a1 = _y - prevY;
     uint256 a0 = prevY - a1;
     // store everyones bid;
-    revealedBid.push(BidInfo(msg.sender, a0, _winningCommitment));
+    revealedBid.push(BidInfo(a0, _winningCommitment));
     revealed[msg.sender] = true;
   }
 
   function revealWinner() external override {
     if (block.timestamp < revealDue) revert();
     uint256 _max;
-    address _winner;
+    uint256 _winner;
     for (uint256 i = 0; i < revealedBid.length; ) {
       if (revealedBid[i].bid > _max) {
         _max = revealedBid[i].bid;
@@ -127,34 +127,37 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
       }
     }
     finalBid = _max;
-    winner = _winner;
+    winnerCommitment = _winner;
   }
 
   function claimPrize(
     uint256 _idCommitment,
+    uint256 _winningCommitment,
     uint256[2] memory _proof_a,
     uint256[2][2] memory _proof_b,
     uint256[2] memory _proof_c
   ) external payable override {
-    if (
-      !IIdVerifier(idVerifier).verify(
-        _proof_a,
-        _proof_b,
-        _proof_c,
-        [_idCommitment, winnerCommitment]
-      )
-    ) {
-      revert();
-    }
-    // check if winner is revealed
-    if (winner == address(0)) revert();
-    // check if winner is msg.sender
-    if (msg.sender != winner) revert();
-    // check if msg.value is bigger than finalBid
-    if (msg.value < finalBid) revert();
-    // transfer money
-    IVault(prizeVault).transferOwnership(msg.sender);
-    prizeClaimed = true;
+    if (_winningCommitment == winningCommitment) {
+      if (
+        !IIdVerifier(idVerifier).verify(
+          _proof_a,
+          _proof_b,
+          _proof_c,
+          [_idCommitment, winnerCommitment]
+        )
+      ) {
+        revert();
+      }
+      // check if msg.value is bigger than finalBid
+      if (msg.value < finalBid) revert();
+      // transfer money
+      IVault(prizeVault).transferOwnership(msg.sender);
+      prizeClaimed = true;
+    } else {}
+
+    // transfer the stake back
+    (bool success, ) = msg.sender.call{ value: entraceStake }("");
+    require(success, "Transfer failed.");
   }
 
   function claimStake() external override {

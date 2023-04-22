@@ -3,7 +3,6 @@ pragma solidity ^0.8.4;
 
 interface IZauktion {
   struct BidInfo {
-    address bidder;
     uint256 bid;
     uint256 winningCommitment;
   }

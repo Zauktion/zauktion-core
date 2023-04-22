@@ -14,7 +14,6 @@ abstract contract ZauktionStorage {
   address internal prizeVault;
 
   uint256 internal finalBid;
-  address internal winner;
   uint256 internal winnerCommitment;
   bool internal prizeClaimed;
 
