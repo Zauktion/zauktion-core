@@ -9,12 +9,13 @@ abstract contract ZauktionStorage {
   uint256 internal entraceStake;
   uint256 internal bidDue;
   uint256 internal revealDue;
-  address internal verifier;
+  address internal auctionVerifier;
+  address internal idVerifier;
   address internal prizeVault;
 
   uint256 internal finalBid;
   address internal winner;
-  bool internal winnerRevealed;
+  uint256 internal winnerCommitment;
   bool internal prizeClaimed;
 
   mapping(address => bool) public revealed;
