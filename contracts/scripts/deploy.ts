@@ -14,6 +14,7 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
+  /*
   const Verifier = await ethers.getContractFactory("Verifier");
   const verifier = await Verifier.deploy();
   await verifier.deployed();
@@ -21,6 +22,23 @@ async function main() {
   const zkApp = await ZkApp.deploy(verifier.address);
   await zkApp.deployed();
   console.log(zkApp.address);
+  */
+  const EventsFactory = await ethers.getContractFactory("EventsFactory");
+  const eventsFactory = await EventsFactory.deploy();
+  await eventsFactory.deployed();
+  console.log("EventsFactory deployed to:", eventsFactory.address);
+  const IdcheckVerifier = await ethers.getContractFactory("IdcheckVerifier");
+  const idcheckVerifier = await IdcheckVerifier.deploy();
+  await idcheckVerifier.deployed();
+  console.log("IdcheckVerifier deployed to:", idcheckVerifier.address);
+  const ZauktionVerifier = await ethers.getContractFactory("ZauktionVerifier");
+  const zauktionVerifier = await ZauktionVerifier.deploy();
+  await zauktionVerifier.deployed();
+  console.log("ZauktionVerifier deployed to:", zauktionVerifier.address);
+  const Zauktion = await ethers.getContractFactory("Zauktion");
+  const zauktion = await Zauktion.deploy();
+  await zauktion.deployed();
+  console.log("Zauktion deployed to:", zauktion.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
