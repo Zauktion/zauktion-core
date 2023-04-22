@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import { zauktionBidProof } from "./genProof.js";
 const app = express();
@@ -5,6 +6,7 @@ const port = 8080;
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+app.use(cors())
 
 app.post("/gen-proof", async (req, res) => {
   if (!req.body) {
