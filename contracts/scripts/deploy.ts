@@ -27,6 +27,7 @@ async function main() {
   const eventsFactory = await EventsFactory.deploy();
   await eventsFactory.deployed();
   console.log("EventsFactory deployed to:", eventsFactory.address);
+  /*
   const IdcheckVerifier = await ethers.getContractFactory("IdcheckVerifier");
   const idcheckVerifier = await IdcheckVerifier.deploy();
   await idcheckVerifier.deployed();
@@ -40,6 +41,7 @@ async function main() {
   await zauktion.deployed();
   console.log("Zauktion deployed to:", zauktion.address);
   const setAuction = await zauktion.setAuction(1, ethers.utils.parseEther('0.0000001'), 1682191709, 1682191809, zauktionVerifier.address, idcheckVerifier.address, '0x0000000000000000000000000000000000000000');
+  */
 }
 
 // We recommend this pattern to be able to use async/await everywhere
