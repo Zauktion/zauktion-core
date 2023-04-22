@@ -19,20 +19,24 @@ describe("Test zauktion verifier", () => {
 
   describe("verify", () => {
     it("should able to verify valid input", async () => {
+      const idSecret = "secret";
+      let idSecretHash = "";
+      for (let i = 0; i < idSecret.length; i++) {
+        idSecretHash += idSecret.charCodeAt(i).toString(16);
+      }
       const bid = BigInt("1000");
-      const biddingAddress = BigInt(
-        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
-      );
-      const groupId = BigInt(10);
+      const auctionId = BigInt(10);
       const x = BigInt(1);
       const circuitInputs = ff.utils.stringifyBigInts({
         // Converts the buffer to a BigInt
         bid: bid,
-        biddingAddress: biddingAddress,
-        groupId: groupId,
+        idSecret: idSecretHash,
+        auctionId: auctionId,
         x: x,
       });
+      console.log(circuitInputs)
       const proof = await groth16.fullProve(circuitInputs, wasmFile, zkeyFile);
+      console.log(proof);
       const proofForTx = proofToSCFormat(proof.proof, proof.publicSignals);
       const res = await verifier.verifyProof(
         ff.utils.stringifyBigInts(proofForTx.a),
