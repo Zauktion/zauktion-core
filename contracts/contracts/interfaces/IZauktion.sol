@@ -21,6 +21,7 @@ interface IZauktion {
         uint256 _y,
         uint256 _nullifier,
         uint256 _idCommitment,
+        uint256 _winningCommitment,
         uint256[2] memory _proof_a,
         uint256[2][2] memory _proof_b,
         uint256[2] memory _proof_c

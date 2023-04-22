@@ -25,7 +25,7 @@ interface IAuctionVerifier {
         uint256[2] memory,
         uint256[2][2] memory,
         uint256[2] memory,
-        uint256[5] memory
+        uint256[6] memory
     ) external view returns (bool);
 }
 
@@ -52,6 +52,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
         uint256 _y,
         uint256 _nullifier,
         uint256 _idCommitment,
+        uint256 _winningCommitment,
         uint256[2] memory _proof_a,
         uint256[2][2] memory _proof_b,
         uint256[2] memory _proof_c
@@ -65,7 +66,14 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
                 _proof_a,
                 _proof_b,
                 _proof_c,
-                [1, auctionId, _y, _nullifier, _idCommitment]
+                [
+                    1,
+                    auctionId,
+                    _y,
+                    _nullifier,
+                    _idCommitment,
+                    _winningCommitment
+                ]
             )
         ) {
             revert();
@@ -88,7 +96,14 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
                 _proof_a,
                 _proof_b,
                 _proof_c,
-                [2, auctionId, _y, _nullifier, _idCommitment]
+                [
+                    2,
+                    auctionId,
+                    _y,
+                    _nullifier,
+                    _idCommitment,
+                    _winningCommitment
+                ]
             )
         ) {
             revert();
@@ -120,7 +135,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
         for (uint256 i = 0; i < revealedBid.length; ) {
             if (revealedBid[i].bid > _max) {
                 _max = revealedBid[i].bid;
-                _winner = revealedBid[i].bidder;
+                _winner = revealedBid[i].winningCommitment;
             }
             unchecked {
                 i++;
@@ -136,7 +151,9 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
         uint256[2][2] memory _proof_b,
         uint256[2] memory _proof_c
     ) external payable override {
-        uint256 _winnerCommitment = idCommitmentToWinnerCommitment[_idCommitment]
+        uint256 _winnerCommitment = idCommitmentToWinnerCommitment[
+            _idCommitment
+        ];
         if (
             !IIdVerifier(idVerifier).verify(
                 _proof_a,
@@ -148,7 +165,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
             revert();
         }
 
-        if (_winnerCommitment == winnerCommitment ) {
+        if (_winnerCommitment == winnerCommitment) {
             // check if msg.value is bigger than finalBid
             if (msg.value < finalBid) revert();
             // transfer money

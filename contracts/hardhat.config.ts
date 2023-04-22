@@ -93,12 +93,27 @@ const config: HardhatUserConfig = {
     currency: "USD",
   },
   etherscan: {
+    apiKey: process.env.ETHERSCAN_API_KEY,
+  },
+  /*dependencyCompiler: {
+    paths: ["circuits/zk/verifiers/Main.sol"],
+  },*/
+};
+
+export default config;
+
+/*
+    apiKey: {
+      chiado: "8CS2FCGGZFP2QUINHA6FNYSDVV3Q556Q2M",
+      gnosis: "8CS2FCGGZFP2QUINHA6FNYSDVV3Q556Q2M",
+      mainnet: `${process.env.ARBISCAN_API_KEY}`,
+    },
     customChains: [
       {
         network: "chiado",
         chainId: 10200,
         urls: {
-          //Blockscout
+          // Blockscout
           apiURL: "https://blockscout.com/gnosis/chiado/api",
           browserURL: "https://blockscout.com/gnosis/chiado",
         },
@@ -112,22 +127,9 @@ const config: HardhatUserConfig = {
           apiURL: "https://api.gnosisscan.io/api",
           browserURL: "https://gnosisscan.io/",
           // Blockscout
-          //apiURL: "https://blockscout.com/xdai/mainnet/api",
-          //browserURL: "https://blockscout.com/xdai/mainnet",
+          // apiURL: "https://blockscout.com/xdai/mainnet/api",
+          // browserURL: "https://blockscout.com/xdai/mainnet",
         },
       },
     ],
-    apiKey: {
-      //4) Insert your Gnosisscan API key
-      //blockscout explorer verification does not require keys
-      chiado: "your key",
-      gnosis: "your key",
-    },
-    apiKey: process.env.ETHERSCAN_API_KEY,
-  },
-  dependencyCompiler: {
-    paths: ["circuits/zk/verifiers/Main.sol"],
-  },
-};
-
-export default config;
+*/
