@@ -3,17 +3,18 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { groth16 } from "snarkjs";
 import * as ff from "ffjavascript";
 import { proofToSCFormat } from "./utils";
-import { Verifier, Verifier__factory } from "../typechain";
+import { IAuctionVerifier } from "../typechain";
+import { IAuctionVerifier__factory } from "../typechain/factories";
 
 const wasmFile = "./test/zauktion.wasm";
 const zkeyFile = "./test/zauktion.zkey";
 
 describe("Test zauktion verifier", () => {
   let deployer: SignerWithAddress;
-  let verifier: Verifier;
+  let verifier: IAuctionVerifier;
   before(async () => {
     [deployer] = await ethers.getSigners();
-    verifier = await new Verifier__factory(deployer).deploy();
+    verifier = await new IAuctionVerifier__factory(deployer).deploy();
     await verifier.deployTransaction.wait();
   });
 
