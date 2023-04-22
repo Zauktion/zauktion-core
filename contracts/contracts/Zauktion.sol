@@ -12,7 +12,7 @@ import "./interfaces/IVault.sol";
 import {ZauktionStorage} from "./storage/Zauktion.sol";
 
 interface IIdVerifier {
-    function verify(
+    function verifyProof(
         uint256[2] memory,
         uint256[2][2] memory,
         uint256[2] memory,
@@ -21,7 +21,7 @@ interface IIdVerifier {
 }
 
 interface IAuctionVerifier {
-    function verify(
+    function verifyProof(
         uint256[2] memory,
         uint256[2][2] memory,
         uint256[2] memory,
@@ -62,7 +62,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
         if (msg.value < entraceStake) revert();
 
         if (
-            !IAuctionVerifier(auctionVerifier).verify(
+            !IAuctionVerifier(auctionVerifier).verifyProof(
                 _proof_a,
                 _proof_b,
                 _proof_c,
@@ -92,7 +92,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
     ) external override {
         if (block.timestamp > revealDue) revert();
         if (
-            !IAuctionVerifier(auctionVerifier).verify(
+            !IAuctionVerifier(auctionVerifier).verifyProof(
                 _proof_a,
                 _proof_b,
                 _proof_c,
@@ -110,7 +110,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
         }
 
         if (
-            !IIdVerifier(idVerifier).verify(
+            !IIdVerifier(idVerifier).verifyProof(
                 _proof_a,
                 _proof_b,
                 _proof_c,
@@ -155,7 +155,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
             _idCommitment
         ];
         if (
-            !IIdVerifier(idVerifier).verify(
+            !IIdVerifier(idVerifier).verifyProof(
                 _proof_a,
                 _proof_b,
                 _proof_c,
