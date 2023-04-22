@@ -4,6 +4,7 @@ import { groth16 } from "snarkjs";
 import * as ff from "ffjavascript";
 import { proofToSCFormat } from "./utils";
 import { ZauktionVerifier, IdcheckVerifier } from "../typechain";
+import { expect } from "chai";
 
 const zauktionWasmFile = "./test/zauktion.wasm";
 const zauktionZkeyFile = "./test/zauktion.zkey";
@@ -15,6 +16,7 @@ describe("Test Zauktion Verifier", () => {
   let accounts: SignerWithAddress[];
   let zauktionVerifier: ZauktionVerifier;
   let idcheckVerifier: IdcheckVerifier;
+  let signals: BigInt[];
   before(async () => {
     accounts = await ethers.getSigners();
     const ZauktionVerifier = await ethers.getContractFactory("ZauktionVerifier");
@@ -45,14 +47,14 @@ describe("Test Zauktion Verifier", () => {
       });
       const proof = await groth16.fullProve(circuitInputs, zauktionWasmFile, zauktionZkeyFile);
       const proofForTx = proofToSCFormat(proof.proof, proof.publicSignals);
-      console.log(proof);
+      signals = proof.publicSignals;
       const res = await zauktionVerifier.verifyProof(
         ff.utils.stringifyBigInts(proofForTx.a),
         ff.utils.stringifyBigInts(proofForTx.b),
         ff.utils.stringifyBigInts(proofForTx.c),
         ff.utils.stringifyBigInts(proofForTx.pub)
       );
-      console.log(res);
+      expect(res).to.be.true;
     });
     it("should able to verify valid input", async () => {
       const idSecret = "secret";
@@ -61,25 +63,21 @@ describe("Test Zauktion Verifier", () => {
         idSecretHash += idSecret.charCodeAt(i).toString(16);
       }
 
-      const auctionId = BigInt(10);
-      const x = BigInt(1);
       const circuitInputs = ff.utils.stringifyBigInts({
         // Converts the buffer to a BigInt
-        bid: bid,
-        idSecret: idSecret,
-        auctionId: auctionId,
-        x: x,
+        idSecret: idSecretHash,
+        idCommitment: signals[3],
       });
-      const proof = await groth16.fullProve(circuitInputs, zauktionWasmFile, zauktionZkeyFile);
+      const proof = await groth16.fullProve(circuitInputs, idcheckWasmFile, idcheckZkeyFile);
 
       const proofForTx = proofToSCFormat(proof.proof, proof.publicSignals);
-      const res = await zauktionVerifier.verifyProof(
+      const res = await idcheckVerifier.verifyProof(
         ff.utils.stringifyBigInts(proofForTx.a),
         ff.utils.stringifyBigInts(proofForTx.b),
         ff.utils.stringifyBigInts(proofForTx.c),
         ff.utils.stringifyBigInts(proofForTx.pub)
       );
-      console.log(res);
+      expect(res).to.be.true;
     });
   });
 });
