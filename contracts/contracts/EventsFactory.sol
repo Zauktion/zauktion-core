@@ -2,14 +2,12 @@
 pragma solidity ^0.8.4;
 
 // imported contracts and libraries
-import "./ZKoupon.sol";
 import "./Zauktion.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 // interfaces
 import "./interfaces/IEventsFactory.sol";
 import "./interfaces/ITicket.sol";
-import "./interfaces/IZKoupon.sol";
 
 // constants and types
 import {EventsFactoryStorage} from "./storage/EventsFactory.sol";
