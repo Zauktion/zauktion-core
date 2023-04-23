@@ -46,4 +46,4 @@
 [PepeCoin.sol: 0x96332840c5Aa2F2F52C5ad60EeAaa9f72D795a0a](https://blockscout.com/gnosis/chiado/address/0x96332840c5Aa2F2F52C5ad60EeAaa9f72D795a0a#code)
 [Vault.sol: 0x2Fa4e52a9D72f329958a555bc5edE5a360Df1c39](https://blockscout.com/gnosis/chiado/address/0x2Fa4e52a9D72f329958a555bc5edE5a360Df1c39#code)
 [ZauktionVerifier.sol: 0xB6Ed48cf9f1EDf5298cd6FE5257c92B28bC22f57](https://blockscout.com/gnosis/chiado/address/0xB6Ed48cf9f1EDf5298cd6FE5257c92B28bC22f57#code)
-[Zauktion.sol: 0xA041E720821Fd1b89A645cE6f90cb29B9F4a3dC4](https://blockscout.com/gnosis/chiado/address/0xA041E720821Fd1b89A645cE6f90cb29B9F4a3dC4#code)
+[Zauktion.sol: 0xF03A8aeFA07f342231BEDc4A798035C5B65d8Fc0](https://blockscout.com/gnosis/chiado/address/0xF03A8aeFA07f342231BEDc4A798035C5B65d8Fc0#code)
