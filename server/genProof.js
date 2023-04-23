@@ -5,7 +5,7 @@ import { proofToSCFormat } from "./utils.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-import abi from "./configs/zauktion.json" ;
+import abi from "./configs/zauktion.json";
 const zauktionWasmFile = "./configs/zauktion.wasm";
 const zauktionZkeyFile = "./configs/zauktion.zkey";
 const idcheckWasmFile = "./configs/idcheck.wasm";
@@ -24,16 +24,18 @@ const zauktionBidProof = async (data) => {
     for (let i = 0; i < idSecret.length; i++) {
       idSecretHash += idSecret.charCodeAt(i).toString(16);
     }
+    console.log(idSecretHash)
 
     const auctionId = await zauktion.auctionId();
     const x = BigInt(1);
     const circuitInputs = ff.utils.stringifyBigInts({
       // Converts the buffer to a BigInt
       bid: bid,
-      idSecret: idSecretHash,
+      idSecret: '0x'+idSecretHash,
       auctionId: auctionId,
       x: x,
     });
+    console.log(circuitInputs)
     const proof = await groth16.fullProve(
       circuitInputs,
       zauktionWasmFile,
