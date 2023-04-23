@@ -18,5 +18,6 @@ abstract contract ZauktionStorage {
 
     mapping(uint256 => uint256) public idCommitmentToWinnerCommitment;
     mapping(uint256 => uint256) public yList;
+    mapping(uint256 => bool) public idCommitmentClaimed;
     IZauktion.BidInfo[] public revealedBid;
 }

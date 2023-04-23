@@ -37,6 +37,13 @@ async function main() {
   const lock = await pepeCoin.transfer(vault.address, ethers.utils.parseEther('100000000'));
   console.log("ZauktionVerifier deployed to:", zauktionVerifier.address);
   */
+
+  const zauktionVerifier = "0xB6Ed48cf9f1EDf5298cd6FE5257c92B28bC22f57";
+  const idcheckVerifier = "0x1F63A23BedC45EE169166Ff2fB3c484EF845D03e";
+  const vault = "0x2Fa4e52a9D72f329958a555bc5edE5a360Df1c39";
+  const bidDue = 1682220600;
+  const revealDue = 1682221500;
+
   const Zauktion = await ethers.getContractFactory("Zauktion");
   //const zauktion = await Zauktion.deploy();
   const zauktion = Zauktion.attach("0xF03A8aeFA07f342231BEDc4A798035C5B65d8Fc0");

@@ -57,9 +57,9 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
         uint256[2][2] memory _proof_b,
         uint256[2] memory _proof_c
     ) external payable override {
-        if (block.timestamp > bidDue) revert();
+        if (block.timestamp > bidDue) revert("Overdue");
 
-        if (msg.value < entraceStake) revert();
+        if (msg.value < entraceStake) revert("Not Enough Stake");
 
         if (
             !IAuctionVerifier(auctionVerifier).verifyProof(
@@ -76,7 +76,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
                 ]
             )
         ) {
-            revert();
+            revert("Proof Failed");
         }
         yList[_idCommitment] = _y;
     }
@@ -90,7 +90,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
         uint256[2][2] memory _proof_b,
         uint256[2] memory _proof_c
     ) external override {
-        if (block.timestamp > revealDue) revert();
+        if (block.timestamp > revealDue) revert("Overdue");
         if (
             !IAuctionVerifier(auctionVerifier).verifyProof(
                 _proof_a,
@@ -106,18 +106,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
                 ]
             )
         ) {
-            revert();
-        }
-
-        if (
-            !IIdVerifier(idVerifier).verifyProof(
-                _proof_a,
-                _proof_b,
-                _proof_c,
-                [_idCommitment, winnerCommitment]
-            )
-        ) {
-            revert();
+            revert("Proof Failed");
         }
 
         uint256 prevY = yList[_idCommitment];
@@ -151,6 +140,8 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
         uint256[2][2] memory _proof_b,
         uint256[2] memory _proof_c
     ) external payable override {
+        if (winnerCommitment == 0) revert("Winner Not Revealed Yet");
+        if (idCommitmentClaimed[_idCommitment]) revert("Already Claimed");
         uint256 _winnerCommitment = idCommitmentToWinnerCommitment[
             _idCommitment
         ];
@@ -162,15 +153,16 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
                 [_idCommitment, _winnerCommitment]
             )
         ) {
-            revert();
+            revert("Proof Failed");
         }
 
         if (_winnerCommitment == winnerCommitment) {
             // check if msg.value is bigger than finalBid
-            if (msg.value < finalBid) revert();
+            if (msg.value < finalBid) revert("You Should Pay More");
             // transfer money
             IVault(prizeVault).transferOwnership(msg.sender);
         }
+        idCommitmentClaimed[_idCommitment] = true;
 
         // transfer the stake back
         (bool success, ) = msg.sender.call{value: entraceStake}("");
