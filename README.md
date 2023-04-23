@@ -1,11 +1,14 @@
 # ZauKtion
-ZauKtion is our hackathon project with the purpose of making an on-chain auction process where the bids and bidders remain unknown and the auction is carried out in a trustless process.
+An on-chain auction system with privacy by implementing zero-knowledge proofs. In this system, bidders and their bid prices will be hidden, ensuring that only the winning bidder and their bid amount will be revealed after the end of the valid bidding period.
 
-## Pre requisites
+---
+
+## Reproduction
+### Prerequisites
 
 * Install rust and [circom2](https://docs.circom.io/getting-started/installation/)
 
-## Getting started
+### Getting started
 
 1. Clone or fork this template repository.
     ```shell
@@ -20,12 +23,37 @@ ZauKtion is our hackathon project with the purpose of making an on-chain auction
     yarn build
     ```
 
-## Run tests
+### Run tests
 1. Test contracts with Proofs
     ```shell
     cd contracts/
     yarn hardhat test test/Proof.test.ts
     ```
+
+## We Built
+```
+├── circuits
+│   ├── zauktion.circom
+│   ├── idcheck.circom
+├── contracts
+│   ├── IdcheckVerifier.sol
+│   ├── ZauktionVerifier.sol
+│   ├── Vault.sol
+│   ├── PepeCoin.sol
+│   ├── EventsFactory.sol
+│   ├── Zauktion.sol
+```
+
+## Contract Flow
+### Auction Host
+1. To create an auction, call `createAuction()` in `EventsFactory.sol`. This deploys a new `Zauktion.sol` contract, with each contract representing a new auction.<br>
+2. To set the parameters of the auction, call `setAuction()` in `Zauktion.sol`. These parameters include the bid due time, reveal due time, auction ID, auctionVerifier address, ID verifier address, and vault address.
+
+### Auction Bidders
+1. To participate in the auction, users can call the bid() function in Zauktion.sol. They must also submit proof information and earnest money to the contract. The contract will verify the proof and store the "y1" value, which will later be used to calculate the secret bid price. This process is inspired by RLN, which uses a polynomial to hide a secret and reveal it after a certain time. <br><br> **Checks:** <br> 1. Check if the bid due time has passed. <br> 2. Verify that the earnest money meets the entrance stake criteria. <br> 3. Verify that the proof is valid. <br><br>
+2. After the bid due time, the user must submit another proof to reveal their secret bid price. The contract will verify the proof and use the "y2" value to calculate the secret bid price. <br><br> **Checks:** <br> 1. If the due time has passed, reveal the time limit. <br> 2. If the proof is valid <br><br>
+3. Once the reveal period has ended, we will determine the winner by calling `revealWinner()` in `Zauktion.sol`. <br><br> **Checks:** <br> 1. If the time has passed reveal due time <br><br> 
+4. Once we determine the winner, each bidder can reclaim their earnest money by calling `claimPrize()`. <br><br> **Checks:** <br> 1. If the winner has been decided <br> 2. If the user has submit the reveal proof <br> 3. Whether the user has not claimed the prize yet <br><br>
 
 ## Deployed Addresses
 [EventsFactory.sol: 0x77E4c192b6ab081584aBB7d71E795663587f7324](https://blockscout.com/gnosis/chiado/address/0x77E4c192b6ab081584aBB7d71E795663587f7324#code) <br>
