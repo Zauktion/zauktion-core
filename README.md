@@ -1,4 +1,5 @@
-# Zauktion
+# ZauKtion
+ZauKtion is our hackathon project with the purpose of making an on-chain auction process where the bids and bidders remain unknown and the auction is carried out in a trustless process.
 
 ## Pre requisites
 
@@ -8,7 +9,7 @@
 
 1. Clone or fork this template repository.
     ```shell
-    git clone https://github.com/wanseob/zkp-app-boilerplate
+    git clone https://github.com/Zauktion/zauktion-core
     ```
 2. Install packages
     ```shell
@@ -17,10 +18,6 @@
 3. Build: this compiles the circuits and exports artifacts. Then compiles the contracts and generate typescript clients.
     ```shell
     yarn build
-    ```
-4. Run a demo app using a localhost private network.
-    ```shell
-    yarn demo
     ```
 
 ## Run tests
@@ -33,12 +30,6 @@
     ```shell
     yarn workspace circuits test
     ```
-
-3. Test your app
-    ```shell
-    yarn workspace app test
-    ```
-
 
 ## Deployed Addresses
 [EventsFactory.sol: 0x77E4c192b6ab081584aBB7d71E795663587f7324](https://blockscout.com/gnosis/chiado/address/0x77E4c192b6ab081584aBB7d71E795663587f7324#code)
