@@ -140,6 +140,8 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
         uint256[2][2] memory _proof_b,
         uint256[2] memory _proof_c
     ) external payable override {
+        if (winnerCommitment == 0) revert("Winner Not Revealed Yet");
+        if (idCommitmentClaimed[_idCommitment]) revert("Already Claimed");
         uint256 _winnerCommitment = idCommitmentToWinnerCommitment[
             _idCommitment
         ];
@@ -160,6 +162,7 @@ contract Zauktion is Ownable, IZauktion, ZauktionStorage {
             // transfer money
             IVault(prizeVault).transferOwnership(msg.sender);
         }
+        idCommitmentClaimed[_idCommitment] = true;
 
         // transfer the stake back
         (bool success, ) = msg.sender.call{value: entraceStake}("");
