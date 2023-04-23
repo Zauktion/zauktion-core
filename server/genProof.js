@@ -30,7 +30,6 @@ const zauktionBidProof = async (data) => {
     }
 
     const auctionId = await zauktion.auctionId();
-    console.log(auctionId);
     const x = BigInt(1);
     const circuitInputs = ff.utils.stringifyBigInts({
       // Converts the buffer to a BigInt
@@ -46,12 +45,12 @@ const zauktionBidProof = async (data) => {
     );
     const proofForTx = proofToSCFormat(proof.proof, proof.publicSignals);
     return {
-      statusCode: 200,
+      /*statusCode: 200,
       headers: {
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
-      },
+      },*/
       body: JSON.stringify({
         proofForTxA: ff.utils.stringifyBigInts(proofForTx.a),
         proofForTxB: ff.utils.stringifyBigInts(proofForTx.b),
