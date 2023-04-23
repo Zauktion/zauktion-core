@@ -38,11 +38,19 @@ async function main() {
    const lock = await pepeCoin.transfer(vault.address, ethers.utils.parseEther('100000000'));
   console.log("ZauktionVerifier deployed to:", zauktionVerifier.address);
   */
+
+  const zauktionVerifier = "0xB6Ed48cf9f1EDf5298cd6FE5257c92B28bC22f57";
+  const idcheckVerifier = "0x1F63A23BedC45EE169166Ff2fB3c484EF845D03e";
+  const vault = "0x2Fa4e52a9D72f329958a555bc5edE5a360Df1c39";
+  const bidDue = 1682220600;
+  const revealDue = 1682221500;
+
   const Zauktion = await ethers.getContractFactory("Zauktion");
   const zauktion = await Zauktion.deploy();
   await zauktion.deployed();
+
   console.log("Zauktion deployed to:", zauktion.address);
-  //const setAuction = await zauktion.setAuction(1, ethers.utils.parseEther('0.0000001'), 1682191709, 1682191809, zauktionVerifier.address, idcheckVerifier.address, vault.address);
+  const setAuction = await zauktion.setAuction(1, ethers.utils.parseEther('0.0000001'), bidDue, revealDue, zauktionVerifier, idcheckVerifier, vault);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

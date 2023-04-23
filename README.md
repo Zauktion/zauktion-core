@@ -33,4 +33,4 @@ ZauKtion is our hackathon project with the purpose of making an on-chain auction
 [PepeCoin.sol: 0x96332840c5Aa2F2F52C5ad60EeAaa9f72D795a0a](https://blockscout.com/gnosis/chiado/address/0x96332840c5Aa2F2F52C5ad60EeAaa9f72D795a0a#code) <br>
 [Vault.sol: 0x2Fa4e52a9D72f329958a555bc5edE5a360Df1c39](https://blockscout.com/gnosis/chiado/address/0x2Fa4e52a9D72f329958a555bc5edE5a360Df1c39#code) <br>
 [ZauktionVerifier.sol: 0xB6Ed48cf9f1EDf5298cd6FE5257c92B28bC22f57](https://blockscout.com/gnosis/chiado/address/0xB6Ed48cf9f1EDf5298cd6FE5257c92B28bC22f57#code) <br>
-[Zauktion.sol: 0xA041E720821Fd1b89A645cE6f90cb29B9F4a3dC4](https://blockscout.com/gnosis/chiado/address/0xA041E720821Fd1b89A645cE6f90cb29B9F4a3dC4#code) <br>
+[Zauktion.sol: 0x6134fB1B9BDf76596F05851686F19c2c0A85CEe8](https://blockscout.com/gnosis/chiado/address/0x6134fB1B9BDf76596F05851686F19c2c0A85CEe8#code) <br>
