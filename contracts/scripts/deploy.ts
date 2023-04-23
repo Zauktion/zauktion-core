@@ -29,6 +29,7 @@ async function main() {
   await eventsFactory.deployed();
   console.log("EventsFactory deployed to:", eventsFactory.address);
   */
+  /*
   const IdcheckVerifier = await ethers.getContractFactory("IdcheckVerifier");
   const idcheckVerifier = await IdcheckVerifier.deploy();
   await idcheckVerifier.deployed();
@@ -47,11 +48,16 @@ async function main() {
   const lock = await pepeCoin.transfer(vault.address, ethers.utils.parseEther('100000000'));
 
   console.log("ZauktionVerifier deployed to:", zauktionVerifier.address);
+  */
   const Zauktion = await ethers.getContractFactory("Zauktion");
-  const zauktion = await Zauktion.deploy();
-  await zauktion.deployed();
+  //const zauktion = await Zauktion.deploy();
+  const zauktion = Zauktion.attach("0xF03A8aeFA07f342231BEDc4A798035C5B65d8Fc0");
+  const vault = "0x2Fa4e52a9D72f329958a555bc5edE5a360Df1c39";
+  const idcheckVerifier = "0x1F63A23BedC45EE169166Ff2fB3c484EF845D03e";
+  const zauktionVerifier = "0xB6Ed48cf9f1EDf5298cd6FE5257c92B28bC22f57";
+
   console.log("Zauktion deployed to:", zauktion.address);
-  const setAuction = await zauktion.setAuction(1, ethers.utils.parseEther('0.0000001'), 1682191709, 1682191809, zauktionVerifier.address, idcheckVerifier.address, vault.address);
+  const setAuction = await zauktion.setAuction(1, ethers.utils.parseEther('0.0000001'), 1682212500, 1682213400, zauktionVerifier, idcheckVerifier, vault);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
