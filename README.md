@@ -21,14 +21,10 @@ ZauKtion is our hackathon project with the purpose of making an on-chain auction
     ```
 
 ## Run tests
-1. Test contracts
+1. Test contracts with Proofs
     ```shell
-    yarn workspace contracts test
-    ```
-
-2. Test your circuits
-    ```shell
-    yarn workspace circuits test
+    cd contracts/
+    yarn hardhat test test/Proof.test.ts
     ```
 
 ## Deployed Addresses
